@@ -1,0 +1,57 @@
+// Jenkins Pipeline script for Team 1's flask app
+//Stages need to be modified in the futuure to suit our project needs.
+
+**`ops/Jenkinsfile` (starter)**:
+```groovy
+pipeline {
+    agent any
+    options {timestamps()}
+    triggers {pollSCM('@daily')} //this will monitor and poll the repo for changes daily. To be replaced with webhook later
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from the repository
+                checkout scm
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh '''python3 -m venv venv
+                    . venv/bin/activate
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                '''
+            }
+        }
+        stage('Unit Tests') {
+            steps {
+                sh '''. venv/bin/activate
+                    pytest tests.py
+                '''
+            }
+        }
+        stage('Build Docker image') {
+            when{expression {return fileexists('Dockerfile')}}
+            steps {
+                sh '''
+                echo "Building Docker image..."
+                docker build -t team1-flask-app:${env.BUILD_ID} .
+                '''
+            }
+        }
+        stage('Push Docker image to registry') {
+            steps {
+                sh '''
+                echo "Pushing Docker image to registry..."
+                docker push team1-flask-app:${env.BUILD_ID}
+                '''
+            }
+        }
+    }
+    post{
+        always{
+            junit 'test-results/results.xml'
+            archiveArtifacts artifacts: '**/test-results/*.xml', allowEmptyArchive: true
+        }
+    }
+}
