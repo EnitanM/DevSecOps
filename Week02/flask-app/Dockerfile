@@ -34,7 +34,7 @@ RUN adduser \
 # Leverage a bind mount to requirements.txt to avoid having to copy them into
 # into this layer.
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install -r Week02/flask-app/requirements.txt
 # Switch to the non-privileged user to run the application.
 USER appuser
 
