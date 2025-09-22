@@ -19,7 +19,7 @@ Jenkins should now be running on your machine at (http://localhost:8080) or your
 ### Configuring Credentials
 1. You should now be back at 'Manage Jenkins'. Select 'Credentials' > System > Global credentials > Add Credentials
 2. Enter your GitHub username in the textbox. Use username as secret if you choose. Next, is to add a password, but we'll be using tokens.
-3. Visit your GitHub page > click your profile image > settings > Developer settings (at the bottom of the left panel)
+3. Visit your GitHub page > click your profile image > Settings > Developer settings
 4. To add tokens, 'Personal access tokens' > Tokens (classic) > Generate new token > Generate new token (classic). *You may generate a scope-specific token for the organization if you choose*
 5. Enter a note, expiration, and check the boxes for your preferred access. Click 'Generate token'
 6. Copy/paste the generated token into the Password textbox in Jenkins and enter "seniorprojecttoken" for easy future identification and configuration with current *Jenkinsfile.ci* for this project. Click 'Create'
@@ -36,5 +36,5 @@ Jenkins should now be running on your machine at (http://localhost:8080) or your
 
 ## Webhooks configuration
 1. I have added smee.io link for our project. To view this link, visit the project's repo > Settings > Webhooks *Read more about the installation here (https://www.jenkins.io/blog/2019/01/07/webhook-firewalls/)*
-2. To install the smee clint, open a new terminal and run `npm install -g smee-client`
+2. To install the smee client, open a new terminal window and run `npm install -g smee-client`
 3. Then run `smee -u https://smee.io/2QAI9s8iW9oVrGGx -t http://localhost:8080/github-webhook/` *If you used a different port, remember to change it in the url*
