@@ -34,5 +34,5 @@ COPY . .
 # Expose the port that the application listens on.
 EXPOSE 8081
 
-# # Run the application.
-# CMD python3 app.py
+# Run the application.
+CMD python3 app.py
