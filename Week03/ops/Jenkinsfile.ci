@@ -12,28 +12,26 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    sh '''
-                        python3 -m venv venv
-                        . venv/bin/activate
-                        cd Week02/flask-app
-                        pip install -r requirements.txt
-                    '''
+                        sh '''
+                            python3 -m venv venv
+                            . venv/bin/activate
+                            pip install -r Week02/flask-app/requirements.txt
+                        '''
                 }
             }
         }
         stage('Run Unit Tests') {
             steps {
-                sh '''
-                    . venv/bin/activate
-                    cd Week02/flask-app
-                    pytest --junitxml=test-results/results.xml tests.py
-                '''
+                    sh '''
+                        . venv/bin/activate
+                        pytest --junitxml=Week02/flask-app/test-results/results.xml Week02/flask-app/tests.py
+                    '''
             }
         }
     }
     post {
         always {
-            junit 'Week02/flask-app/test-results/results.xml'
+                junit 'Week02/flask-app/test-results/results.xml'
             cleanWs()
         }
     }
