@@ -9,6 +9,15 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/dev']], extensions: [], userRemoteConfigs: [[credentialsId: 'seniorprojecttoken', url: 'https://github.com/EnitanM/Test.git']])
             }
         }
+        stage('Build Docker image') {
+            when{expression {return fileExists('Week02/flask-app/Dockerfile')}}
+            steps {
+                sh '''
+                echo "Building Docker image..."
+                docker compose up --build
+                '''
+            }
+        }
         stage('Install Dependencies') {
             steps {
                 script {

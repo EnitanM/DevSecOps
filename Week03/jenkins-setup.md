@@ -18,7 +18,7 @@ Jenkins should now be running on your machine at (http://localhost:8080) or your
 3. Visit your GitHub page > click your profile image > settings > Developer settings (at the bottom of the left panel)
 4. To add tokens, 'Personal access tokens' > Tokens (classic) > Generate new token > Generate new token (classic). *You may generate a scope-specific token for the organization if you choose*
 5. Enter a note, expiration, and check the boxes for your preferred access. Click 'Generate token'
-6. Copy/paste the generated token into the Password textbox in Jenkins and enter "senior_project_token" for easy future identification and configuration with current *Jenkinsfile.ci* for this project. Click 'Create'
+6. Copy/paste the generated token into the Password textbox in Jenkins and enter "seniorprojecttoken" for easy future identification and configuration with current *Jenkinsfile.ci* for this project. Click 'Create'
 ### Pipeline configuration
 1. Navigate back to the landing dashboard by clicking the Jenkins icon on the top left of your screen and select `New Item`. Enter a name for the project. *Choose a name with no spaces for Jenkins backend compatibility. For example, SeniorCapstoneTeam1 or project_team1* Select the 'Pipeline' option and click 'OK' to proceed
 2. Check 'GitHub project' and paste in our project url at `https://github.com/P31CI-CD/CI-CD-Pipeline.git` Check any other preferred settings, for example 'Discard old builds'.
