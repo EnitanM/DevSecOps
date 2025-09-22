@@ -36,5 +36,5 @@ Jenkins should now be running on your machine at (http://localhost:8080) or your
 
 ## Webhooks configuration
 1. I have added smee.io link for our project. To view this link, visit the project's repo > Settings > Webhooks *Read more about the installation here (https://www.jenkins.io/blog/2019/01/07/webhook-firewalls/)*
-2. To install the smee clint, open a new terminal and run `npm install -g smee-client`
+2. To install the smee client, open a new terminal window and run `npm install -g smee-client`
 3. Then run `smee -u https://smee.io/2QAI9s8iW9oVrGGx -t http://localhost:8080/github-webhook/` *If you used a different port, remember to change it in the url*
