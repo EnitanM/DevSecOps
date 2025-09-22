@@ -22,7 +22,7 @@ Jenkins should now be running on your machine at (http://localhost:8080) or your
 ### Pipeline configuration
 1. Navigate back to the landing dashboard by clicking the Jenkins icon on the top left of your screen and select `New Item`. Enter a name for the project. *Choose a name with no spaces for Jenkins backend compatibility. For example, SeniorCapstoneTeam1 or project_team1* Select 'Multibranch Pipeline' option and click 'OK' to proceed. *You may also choose the 'Pipline' option but the configuration is slightly different.
 2. Under 'Branch Sources' > Add source > GitHub > select *seniorprojecttoken* credentials, or the name you used > Copy/paste the repo url (https://github.com/P31CI-CD/CI-CD-Pipeline.git). Keep or modify the defaults for the other subsections.
-3. Check 'GitHub project' and paste in our project url at (https://github.com/P31CI-CD/CI-CD-Pipeline.git).
+3. Check 'GitHub project' and paste in our project's url.
 4. Under the 'Build Configuration' section, keep the 'Mode' by Jenkinsfile and enter the Script path as "Week03/ops/Jenkinsfile.ci" This will be updated as the project progesses. The extension '.ci' specifies that this is the C.I. We will also use webhooks for our project, which will be integrated later.
 5.  Check any other preferred settings, for example 'Discard old items'.
 6. Skip the other properties for now. Configure them if you're familiar with Jenkins. Click 'Save' at the bottom of the page.
