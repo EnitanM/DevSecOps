@@ -17,17 +17,9 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /flask-app
 
-# Create a non-privileged user that the app will run under.
-# See https://docs.docker.com/go/dockerfile-user-best-practices/
-ARG UID=10001
-
-# Download dependencies as a separate step to take advantage of Docker's caching.
-# Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
-# Leverage a bind mount to requirements.txt to avoid having to copy them into
-# into this layer.
-#file path
 COPY /Week02/flask-app/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt &&\
+RUN pip install --no-cache-dir --upgrade pip &&\
+    pip install --no-cache-dir -r requirements.txt &&\
     pip install pytest
 # Copy the source code into the container.
 COPY . .
@@ -35,4 +27,4 @@ COPY . .
 EXPOSE 8081
 
 # Run the application.
-CMD python3 app.py
+CMD python app.py
