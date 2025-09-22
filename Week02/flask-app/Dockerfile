@@ -41,9 +41,10 @@ USER appuser
 
 # Copy the source code into the container.
 COPY . .
-
 # Expose the port that the application listens on.
 EXPOSE 8081
-
+RUN pip install pytest
+# Run tests
+RUN pytest
 # Run the application.
-CMD ./run.sh
+CMD python3 app.py
