@@ -14,15 +14,6 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Create a non-privileged user that the app will run under.
 # the application crashes without emitting any logs due to buffering.
 ENV PYTHONUNBUFFERED=1
-# Create a non-root user with permissions to run docker, pip, python, and python3 commands
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "/nonexistent" \
-    --shell "/sbin/nologin" \
-    --no-create-home \
-    --uid "${UID}" \
-    appuser
 
 # Set the working directory for the application.
 WORKDIR /app
@@ -32,8 +23,7 @@ RUN pip install --no-cache-dir --upgrade pip &&\
     pip install --no-cache-dir -r requirements.txt &&\
     pip install pytest
 
-# Switch to the non-privileged user to run the application.
-USER appuser
+
 # Copy the source code into the container.
 COPY . .
 # Expose the port that the application listens on.
