@@ -6,34 +6,32 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the code from the repository
-                checkout scmGit(branches: [[name: '*/feature'], [name: '*/dev'], [name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'seniorprojecttoken', url: 'https://github.com/P31CI-CD/CI-CD-Pipeline.git']])
+                checkout scmGit(branches: [[name: '*/dev']], extensions: [], userRemoteConfigs: [[credentialsId: 'seniorprojecttoken', url: 'https://github.com/EnitanM/Test.git']])
             }
         }
         stage('Install Dependencies') {
             steps {
                 script {
-                    sh '''
-                        python3 -m venv venv
-                        . venv/bin/activate
-                        cd Week02/flask-app
-                        pip install -r requirements.txt
-                    '''
+                        sh '''
+                            python3 -m venv venv
+                            . venv/bin/activate
+                            pip install -r Week02/flask-app/requirements.txt
+                        '''
                 }
             }
         }
         stage('Run Unit Tests') {
             steps {
-                sh '''
-                    . venv/bin/activate
-                    cd Week02/flask-app
-                    pytest --junitxml=test-results/results.xml tests.py
-                '''
+                    sh '''
+                        . venv/bin/activate
+                        pytest --junitxml=Week02/flask-app/test-results/results.xml Week02/flask-app/tests.py
+                    '''
             }
         }
     }
     post {
         always {
-            junit 'Week02/flask-app/test-results/results.xml'
+                junit 'Week02/flask-app/test-results/results.xml'
             cleanWs()
         }
     }
