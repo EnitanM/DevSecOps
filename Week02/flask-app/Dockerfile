@@ -19,8 +19,7 @@ WORKDIR /app
 
 COPY /Week02/flask-app/requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip &&\
-    pip install --no-cache-dir -r requirements.txt &&\
-    pip install pytest
+    pip install --no-cache-dir -r requirements.txt
 # Copy the source code into the container.
 COPY . .
 # Expose the port that the application listens on.
