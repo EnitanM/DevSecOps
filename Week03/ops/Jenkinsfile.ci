@@ -9,15 +9,15 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/dev']], extensions: [], userRemoteConfigs: [[credentialsId: 'seniorprojecttoken', url: 'https://github.com/EnitanM/Test.git']])
             }
         }
-        // stage('Build Docker image') {
-        //     when{expression {return fileExists('Week02/flask-app/Dockerfile')}}
-        //     steps {
-        //         sh '''
-        //         echo "Building Docker image..."
-        //         docker build -f Week02/flask-app/Dockerfile -t flask-app:latest .
-        //         '''
-        //     }
-        // }
+        stage('Build Docker image') {
+            when{expression {return fileExists('Week02/flask-app/Dockerfile')}}
+            steps {
+                sh '''
+                echo "Building Docker Image..."
+                docker build -f Week02/flask-app/Dockerfile -t flask-app:latest .
+                '''
+            }
+        }
         stage('Install Dependencies') {
             steps {
                 script {
