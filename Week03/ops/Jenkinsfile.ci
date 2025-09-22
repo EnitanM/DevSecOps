@@ -14,7 +14,7 @@ pipeline {
             steps {
                 sh '''
                 echo "Building Docker image..."
-                docker compose -f Week02/flask-app/docker-compose.yaml up --build
+                docker compose -f Week02/flask-app/compose.yaml up --build
                 '''
             }
         }
