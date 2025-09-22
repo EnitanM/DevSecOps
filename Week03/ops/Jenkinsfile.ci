@@ -6,7 +6,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the code from the repository
-                checkout scmGit(branches: [[name: '*/dev']], extensions: [], userRemoteConfigs: [[credentialsId: 'seniorprojecttoken', url: 'https://github.com/EnitanM/Test.git']])
+                checkout scm
             }
         }
         stage('Build Docker image') {
@@ -23,14 +23,14 @@ pipeline {
             sh '''
                 echo "Installing dependencies inside Docker container..."
                 docker run --rm -v $PWD/Week02/flask-app:/app -w /app flask-app:latest \
-                /bin/bash -c "python3 -m venv venv && . venv/bin/activate"
+                /bin/bash -c "python3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt"
             '''
             }
         }
         stage('Run Unit Tests') {
             steps {
             sh '''
-                echo "Running Unit Tests"
+                echo "Running Unit Tests..."
                 docker run --rm -v $PWD/Week02/flask-app:/app -w /app flask-app:latest \
                 /bin/bash -c "pytest tests.py --junitxml=test-results/results.xml"
             '''
