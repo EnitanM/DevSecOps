@@ -17,6 +17,7 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
+COPY requirements.txt .
 # Copy the source code into the container.
 COPY . .
 # Expose the port that the application listens on.
