@@ -15,7 +15,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # the application crashes without emitting any logs due to buffering.
 ENV PYTHONUNBUFFERED=1
 
-WORKDIR /flask-app
+WORKDIR /app
 
 COPY /Week02/flask-app/requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip &&\
