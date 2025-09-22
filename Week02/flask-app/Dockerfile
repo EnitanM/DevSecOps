@@ -35,16 +35,16 @@ RUN adduser \
 # into this layer.
 #file path
 COPY /Week02/flask-app/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt \
+    pip install pytest\
+    # Run tests
+    pytest
 # Switch to the non-privileged user to run the application.
 USER appuser
-
 # Copy the source code into the container.
 COPY . .
 # Expose the port that the application listens on.
 EXPOSE 8081
-RUN pip install pytest
-# Run tests
-RUN pytest
+
 # Run the application.
 CMD python3 app.py
