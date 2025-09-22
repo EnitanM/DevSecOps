@@ -38,7 +38,7 @@ COPY /Week02/flask-app/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt \
     pip install pytest\
     # Run tests
-    pytest
+    pytest tests.py
 # Switch to the non-privileged user to run the application.
 USER appuser
 # Copy the source code into the container.
