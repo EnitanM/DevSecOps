@@ -33,7 +33,8 @@ RUN adduser \
 # Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
 # Leverage a bind mount to requirements.txt to avoid having to copy them into
 # into this layer.
-COPY requirements.txt .
+#file path
+COPY /Week02/flask-app/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 # Switch to the non-privileged user to run the application.
 USER appuser
