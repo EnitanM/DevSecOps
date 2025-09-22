@@ -18,25 +18,15 @@ pipeline {
                 '''
             }
         }
-        // stage('Install Dependencies') {
-        //     steps {
-        //         script {
-        //                 sh '''
-        //                     python -m venv venv
-        //                     . venv/bin/activate
-        //                     pip install -r Week02/flask-app/requirements.txt
-        //                 '''
-        //         }
-        //     }
-        // }
-        // stage('Run Unit Tests') {
-        //     steps {
-        //             sh '''
-        //                 . venv/bin/activate
-        //                 pytest --junitxml=Week02/flask-app/test-results/results.xml Week02/flask-app/tests.py
-        //             '''
-        //     }
-        // }
+        stage('Run Unit Tests') {
+            steps {
+            sh '''
+                echo "Running Unit Tests"
+                docker run --rm -v $PWD/Week02/flask-app:/app -w /app flask-app:latest \
+                /bin/bash -c "python3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt && pytest --junitxml=test-results/results.xml tests.py"
+            '''
+            }
+        }
     }
     post {
         always {
