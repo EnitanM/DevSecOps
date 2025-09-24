@@ -30,4 +30,4 @@ COPY . .
 EXPOSE 8081
 
 # Run the application.
-CMD python app.py
+CMD ["python3", "app.py"]
