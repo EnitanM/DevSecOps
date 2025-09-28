@@ -30,4 +30,4 @@ COPY . .
 EXPOSE 8081
 
 # Run the application.
-CMD ["python3", "app.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8081", "app:app"]
