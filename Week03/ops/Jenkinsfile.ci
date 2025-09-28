@@ -32,7 +32,8 @@ pipeline {
             steps {
                 sh '''
                 echo "Building Docker Image..."
-                docker build -f Week02/flask-app/Dockerfile -t flask-app:latest .
+                cd Week02/flask-app
+                docker build -t flask-app:latest .
                 '''
             }
         }
