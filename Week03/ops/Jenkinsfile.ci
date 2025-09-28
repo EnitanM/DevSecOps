@@ -50,6 +50,7 @@ pipeline {
                 echo "Pushing Docker Image to Registry..."
                 docker push $REGISTRY/$APP_NAME:$IMAGE_TAG
                 '''
+                }
             }
         }
     }
