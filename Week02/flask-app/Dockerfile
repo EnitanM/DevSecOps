@@ -18,7 +18,7 @@ ENV PYTHONUNBUFFERED=1
 # Set the working directory for the application.
 WORKDIR /app
 
-COPY /Week02/flask-app/requirements.txt .
+COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip &&\
     pip install --no-cache-dir -r requirements.txt &&\
     pip install pytest
