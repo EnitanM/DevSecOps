@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    environment{
+        REGISTRY = "secondregistry-dhckdwcvbze3gbet.azurecr.io" //Login server for Azure Container Registry
+        APP_NAME = "team1-flask-app"
+        IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
+    }
     options {timestamps()}
     triggers { githubPush() } // triggers pipeline on GitHub push events
     stages {
@@ -33,7 +38,17 @@ pipeline {
                 sh '''
                 echo "Building Docker Image..."
                 cd Week02/flask-app
-                docker build -t flask-app:latest .
+                docker build -t $REGISTRY/$APP_NAME:$IMAGE_TAG ./app
+                '''
+            }
+        }
+        stage('Push to Registry') {
+            when{expression {return env.REGISTRY != ""}}
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                sh '''
+                echo "Pushing Docker Image to Registry..."
+                docker push $REGISTRY/$APP_NAME:$IMAGE_TAG
                 '''
             }
         }
