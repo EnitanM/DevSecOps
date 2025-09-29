@@ -1,0 +1,7 @@
+# Define application as a service and build the Dockerfile from the current directory
+services:
+  server:
+    build:
+      context: .
+    ports:
+      - 8081:8081
