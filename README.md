@@ -13,3 +13,6 @@ Members: Eni, Rami, Kade, Matt, Cecily
 
 # Week 3's Deliverables
 1. All instructions are in the *jenkins-setup.md* file. 
+
+# Week 4's Deliverables
+All instructions are in the README.md file in the Week04 folder
