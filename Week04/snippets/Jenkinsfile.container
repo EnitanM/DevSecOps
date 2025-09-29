@@ -32,12 +32,12 @@ pipeline {
             }
         }
         stage('Build Docker image') {
-            when{expression {return fileExists('Week04/snippets/Dockerfile.gunicorn')}}
+            when{expression {return fileExists('Week02/flask-app/Dockerfile')}}
             steps {
                 withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
                 sh '''
                 echo "Building Docker Image..."
-                cd Week04/snippets
+                cd Week02/flask-app
                 docker build -t $AZURE_TENANT_ID/$APP_NAME:$IMAGE_TAG .
                 '''
                 }
