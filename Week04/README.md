@@ -4,6 +4,12 @@
 ## Installing Plugin and adding credentials in Jenkins
 1. 'Manage Jenkins' > Plugins > Available Plugins > Azure Credentials > Install
 Read more about Azure Credentials here (https://plugins.jenkins.io/azure-credentials/)
-2. Navigate back to the home page. Click on the pipeline 'SeniorCapstoneTeam1' > Credentials > Under "Stores scoped to SeniorCapstoneTeam1" select the pipeline folder > 'Add domain'
+2. Navigate back to the home page. Click on the pipeline > Credentials > Under "Stores scoped to SeniorCapstoneTeam1" select the pipeline folder > 'Add domain'
 3. Domain Name = "Azure". Description = "add your description". *Example "credentials for azure-related services"*
 4. 'Add Credentials' > Kind = 'Azure Service Principal' > Client ID = enter provided client ID > Client Secret = Enter provided secret > ID = "AZURE_CONTAINER_REGISTRY" > Description = "add your description". *Example "credentials for azure container registry"* > Create
+
+## Suggested structure to view personal repositories
+1. Create a copy of the Jenkinsfile.container file on your local machine. Rename it to Jenkinsfile-'YourName'.container
+2. Change the APP_NAME to "yourname-flask-app" to ensure it does not mix in with another team member's registry.
+3. In Jenkins, update your pipeline configuration to use your specific registry for your image pushes so you can verify with it pushed to Azure. 
+Navigate to the homepage. Click on the pipeline > Configure > Build Configuration > Script Path = Week04/ops/Jenkinsfile-YourName.container > Save/Apply
