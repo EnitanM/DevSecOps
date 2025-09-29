@@ -33,7 +33,7 @@ pipeline {
             }
         }
         stage('Build Docker image') {
-            when{expression {return fileExists('Week02/flask-app/Dockerfile')}}
+            when{expression {return fileExists('Week04/snippets/Dockerfile.gunicorn')}}
             steps {
                 sh '''
                 echo "Building Docker Image..."
