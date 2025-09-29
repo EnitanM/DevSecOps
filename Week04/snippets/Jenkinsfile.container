@@ -1,8 +1,7 @@
 pipeline {
     agent any
     environment{
-        REGISTRY = "secondregistry-dhckdwcvbze3gbet.azurecr.io" //Login server for Azure Container Registry
-        APP_NAME = "capstoneproject"
+        APP_NAME = "flask-app-Eni"
         IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
     }
     options {timestamps()}
@@ -35,21 +34,22 @@ pipeline {
         stage('Build Docker image') {
             when{expression {return fileExists('Week04/snippets/Dockerfile.gunicorn')}}
             steps {
+                withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
                 sh '''
                 echo "Building Docker Image..."
                 cd Week02/flask-app
-                docker build -t $REGISTRY/$APP_NAME:$IMAGE_TAG .
+                docker build -t $AZURE_TENANT_ID/$APP_NAME:$IMAGE_TAG .
                 '''
+                }
             }
         }
         stage('Push to Registry') {
-            when{expression {return env.REGISTRY != ""}}
             steps {
                 withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
                 sh '''
                 echo "Pushing Docker Image to Registry..."
                 echo $AZURE_CLIENT_SECRET | docker login $REGISTRY -u $AZURE_CLIENT_ID --password-stdin
-                docker push $REGISTRY/$APP_NAME:$IMAGE_TAG
+                docker push $AZURE_TENANT_ID/$APP_NAME:$IMAGE_TAG
                 '''
                 }
             }

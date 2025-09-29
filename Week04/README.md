@@ -6,7 +6,7 @@
 Read more about Azure Credentials here (https://plugins.jenkins.io/azure-credentials/)
 2. Navigate back to the home page. Click on the pipeline > Credentials > Under "Stores scoped to SeniorCapstoneTeam1" select the pipeline folder > 'Add domain'
 3. Domain Name = "Azure". Description = "add your description". *Example "credentials for azure-related services"*
-4. 'Add Credentials' > Kind = 'Azure Service Principal' > Client ID = enter provided client ID > Client Secret = Enter provided secret > ID = "AZURE_CONTAINER_REGISTRY" > Description = "add your description". *Example "credentials for azure container registry"* > Create
+4. 'Add Credentials' > Kind = 'Azure Service Principal' > Client ID = enter provided client ID > Client Secret = Enter provided secret > Tenant ID = Enter provided tenant ID > ID = "AZURE_CONTAINER_REGISTRY" > Description = "add your description". *Example "credentials for azure container registry"* > Create
 
 ## Suggested structure to view personal repositories
 1. Create a copy of the Jenkinsfile.container file on your local machine. Rename it to Jenkinsfile-'YourName'.container
