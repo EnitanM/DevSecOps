@@ -17,7 +17,7 @@ pipeline {
             steps {
             sh '''
                 echo "Installing dependencies inside Docker container..."
-                docker run --rm -v $PWD/Week02/flask-app:/app -w /app flask-app:latest \
+                docker run --rm -v $PWD/Week04/flask-app:/app -w /app flask-app:latest \
                 /bin/bash -c "python3 -m venv venv && . venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt"
             '''
             }
@@ -26,7 +26,7 @@ pipeline {
             steps {
             sh '''
                 echo "Running Unit Tests..."
-                docker run --rm -v $PWD/Week02/flask-app:/app -w /app flask-app:latest \
+                docker run --rm -v $PWD/Week04/flask-app:/app -w /app flask-app:latest \
                 /bin/bash -c "pytest tests.py --junitxml=test-results/results.xml"
             '''
             }
@@ -37,7 +37,7 @@ pipeline {
                 withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
                 sh '''
                 echo "Building Docker Image..."
-                cd Week02/flask-app
+                cd Week04/flask-app
                 docker build -t $AZURE_TENANT_ID/$APP_NAME:$IMAGE_TAG .
                 '''
                 }
