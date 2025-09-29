@@ -11,5 +11,6 @@ Read more about Azure Credentials here (https://plugins.jenkins.io/azure-credent
 ## Suggested structure to view personal repositories
 1. Create a copy of the Jenkinsfile.container file on your local machine. Rename it to Jenkinsfile-'YourName'.container
 2. Change the APP_NAME to "yourname-flask-app" to ensure it does not mix in with another team member's registry.
+4. Push your .container file to the GitHub repo
 3. In Jenkins, update your pipeline configuration.
 Navigate to the homepage. Click on the pipeline > Configure > Build Configuration > Script Path = Week04/snippets/Jenkinsfile-YourName.container > Save/Apply
