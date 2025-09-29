@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment{
-        APP_NAME = "flask-app-eni"
+        APP_NAME = "personalproject"
         IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
     }
     options {timestamps()}
