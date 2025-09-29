@@ -47,7 +47,7 @@ pipeline {
             steps {
                 withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
                 sh '''
-                az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
+                az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET
                 echo "Pushing Docker Image to Registry..."
                 docker push $REGISTRY/$APP_NAME:$IMAGE_TAG
                 '''
