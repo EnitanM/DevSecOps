@@ -6,7 +6,7 @@
 # Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
 
 ARG PYTHON_VERSION=3.13.7
-FROM python:${PYTHON_VERSION}-slim as base
+FROM python:${PYTHON_VERSION}-slim AS base
 
 # Prevents Python from writing pyc files.
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -18,7 +18,7 @@ ENV PYTHONUNBUFFERED=1
 # Set the working directory for the application.
 WORKDIR /app
 
-COPY /Week02/flask-app/requirements.txt .
+COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip &&\
     pip install --no-cache-dir -r requirements.txt &&\
     pip install pytest
@@ -30,4 +30,4 @@ COPY . .
 EXPOSE 8081
 
 # Run the application.
-CMD ["python3", "app.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8081", "app:app"]
