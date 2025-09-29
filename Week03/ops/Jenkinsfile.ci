@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment{
         REGISTRY = "secondregistry-dhckdwcvbze3gbet.azurecr.io" //Login server for Azure Container Registry
-        APP_NAME = "team1-flask-app"
+        APP_NAME = "capstoneproject"
         IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
     }
     options {timestamps()}
