@@ -26,11 +26,15 @@ RUN apt-get update && \
     pip install --no-cache-dir -r requirements.txt &&\
     pip install pytest
 
-
-# Copy the source code into the container.
 COPY . .
-# Expose the port that the application listens on.
-EXPOSE 8081
 
-# Run the application.
-CMD ["gunicorn", "--bind", "0.0.0.0:8081", "app:app"]
+# Expose configurable port
+ARG APP_PORT=8081
+EXPOSE ${APP_PORT}
+
+# Configurable app name and Gunicorn options
+ARG APP_MODULE=app:app
+ARG GUNICORN_WORKERS=2
+ARG GUNICORN_THREADS=2
+
+CMD ["gunicorn", "--bind", "0.0.0.0:${APP_PORT}", "${APP_MODULE}", "--workers=${GUNICORN_WORKERS}", "--threads=${GUNICORN_THREADS}"]
