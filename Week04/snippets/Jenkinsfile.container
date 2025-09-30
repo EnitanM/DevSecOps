@@ -32,7 +32,7 @@ pipeline {
             }
         }
         stage('Build Docker image') {
-            when{expression {return fileExists('Week04/snippets/Dockerfile.gunicorn')}}
+            when{expression {return fileExists('Week04/snippets/Dockerfile')}}
             steps {
                 withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
                 sh '''
