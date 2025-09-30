@@ -18,7 +18,7 @@ ENV PYTHONUNBUFFERED=1
 # Set the working directory for the application.
 WORKDIR /app
 
-COPY /Week02/flask-app/requirements.txt .
+COPY Week02/flask-app/requirements.txt .
 RUN apt-get update && \
     apt-get install -y curl && \
     curl -sL https://aka.ms/InstallAzureCLIDeb | bash && \
