@@ -1,7 +1,3 @@
-// Jenkins Pipeline script for Team 1's flask app
-//Stages need to be modified in the futuure to suit our project needs.
-
-**`ops/Jenkinsfile` (starter)**:
 ```groovy
 pipeline {
     agent any
