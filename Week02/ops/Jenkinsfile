@@ -5,8 +5,12 @@
 ```groovy
 pipeline {
     agent any
+    environment{
+        APP_NAME = "personalproject"
+        IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
+    }
     options {timestamps()}
-    triggers {pollSCM('@daily')} //this will monitor and poll the repo for changes daily. To be replaced with webhook later
+    triggers { githubPush() } // triggers pipeline on GitHub push events
     stages {
         stage('Checkout') {
             steps {
@@ -14,44 +18,53 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Install Dependencies') {
+        stage('Installing Dependencies') {
             steps {
-                sh '''python3 -m venv venv
-                    . venv/bin/activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
-                '''
+            sh '''
+                echo "Installing dependencies inside Docker container..."
+                docker run --rm -v $PWD/Week02/flask-app:/app -w /app flask-app:latest \
+                /bin/bash -c "python3 -m venv venv && . venv/bin/activate"
+            '''
             }
         }
-        stage('Unit Tests') {
+        stage('Run Unit Tests') {
             steps {
-                sh '''. venv/bin/activate
-                    pytest tests.py
-                '''
+            sh '''
+                echo "Running Unit Tests..."
+                docker run --rm -v $PWD/Week02/flask-app:/app -w /app flask-app:latest \
+                /bin/bash -c "pytest tests.py --junitxml=test-results/results.xml"
+            '''
             }
         }
         stage('Build Docker image') {
-            when{expression {return fileexists('Dockerfile')}}
+            when{expression {return fileExists('Week02/flask-app/Dockerfile')}}
             steps {
+                withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
                 sh '''
-                echo "Building Docker image..."
-                docker build -t team1-flask-app:${env.BUILD_ID} .
+                echo "Building Docker Image..."
+                cd Week02/flask-app
+                docker build -t $AZURE_TENANT_ID/$APP_NAME:$IMAGE_TAG .
                 '''
+                }
             }
         }
-        stage('Push Docker image to registry') {
+        stage('Push to Registry') {
+            when{branch 'main'}
             steps {
+                withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
                 sh '''
-                echo "Pushing Docker image to registry..."
-                docker push team1-flask-app:${env.BUILD_ID}
+                echo "Pushing Docker Image to Registry..."
+                echo $AZURE_CLIENT_SECRET | docker login $AZURE_TENANT_ID -u $AZURE_CLIENT_ID --password-stdin
+                docker push $AZURE_TENANT_ID/$APP_NAME:$IMAGE_TAG
                 '''
+                }
             }
         }
     }
-    post{
-        always{
-            junit 'test-results/results.xml'
-            archiveArtifacts artifacts: '**/test-results/*.xml', allowEmptyArchive: true
+    post {
+        always {
+                junit 'Week02/flask-app/test-results/results.xml'
+            cleanWs()
         }
     }
-}
+}```
