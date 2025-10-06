@@ -44,6 +44,7 @@ pipeline {
             }
         }
         stage('Push to Registry') {
+            when{branch 'main'}
             steps {
                 withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
                 sh '''
