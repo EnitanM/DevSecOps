@@ -36,4 +36,4 @@ ARG GUNICORN_THREADS=2
 EXPOSE ${APP_PORT}
 
 
-CMD gunicorn --bind 0.0.0.0:${APP_PORT} ${APP_MODULE} --workers=${GUNICORN_WORKERS} --threads=${GUNICORN_THREADS}
+CMD gunicorn --bind 0.0.0.0:${APP_PORT} ${APP_MODULE}
