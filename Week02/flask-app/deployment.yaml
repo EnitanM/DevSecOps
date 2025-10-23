@@ -17,6 +17,8 @@ spec:
         image: capstoneteam1-avd2dagya7gjdhda.azurecr.io/flask-app-eni:latest
         ports:
         - containerPort: 8081
+      imagePullSecrets:
+      - name: acr-auth   # <-- Reference your ACR secret here
 
 ---
 apiVersion: v1
