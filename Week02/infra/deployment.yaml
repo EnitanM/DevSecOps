@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: personalproject
+  labels:
+    app: flask-app-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-app-test
+  template:
+    metadata:
+      labels:
+        app: flask-app-test
+    spec:
+      containers:
+      - name: flask-app-test
+        image: capstoneteam1-avd2dagya7gjdhda.azurecr.io/personalproject:v1.0.14   # Update with Jenkins image
+        ports:
+        - containerPort: 8081
