@@ -30,9 +30,10 @@ COPY . .
 
 # Expose configurable port
 ARG APP_PORT=8081
+ARG APP_MODULE=app:app
+ARG GUNICORN_WORKERS=1
+ARG GUNICORN_THREADS=2
 EXPOSE ${APP_PORT}
 
-# Configurable app name and Gunicorn options
-ARG APP_MODULE=app:app
 
-CMD gunicorn --bind 0.0.0.0:${APP_PORT} ${APP_MODULE}
+CMD gunicorn --bind 0.0.0.0:${APP_PORT} ${APP_MODULE} --workers=${GUNICORN_WORKERS} --threads=${GUNICORN_THREADS}
