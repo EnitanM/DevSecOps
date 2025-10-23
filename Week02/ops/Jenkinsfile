@@ -55,6 +55,24 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to Kubernetes') {
+            when { branch 'main' }
+            steps {
+                withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
+                    sh '''
+                    echo "Updating deployment manifest with current image tag..."
+                    export IMAGE_TAG=v1.0.${BUILD_NUMBER}
+                    export IMAGE_NAME=capstoneteam1-avd2dagya7gjdhda.azurecr.io/personalproject:$IMAGE_TAG
+
+                    # Substitute the image tag in the deployment manifest
+                    envsubst < Week02/infra/deployment.yaml > Week02/infra/deployment.generated.yaml
+
+                    echo "Applying updated manifest to Kubernetes..."
+                    kubectl apply -f Week02/infra/deployment.generated.yaml
+                    '''
+                }
+            }
+        }
     }
     post {
         always {
