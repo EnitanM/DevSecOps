@@ -73,3 +73,7 @@ Read more about Azure Credentials here (https://plugins.jenkins.io/azure-credent
 4. In Jenkins, update your pipeline configuration.
 Navigate to the homepage. Click on the pipeline > Configure > Build Configuration > Script Path = Week04/snippets/Jenkinsfile-YourName.container > Save/Apply
 5. Re-run your build, and troubleshoot as needed.
+
+# Week 5
+### Useful Links
+1. Exploring minikube (https://kubernetes.io/docs/tutorials/hello-minikube/) or (https://minikube.sigs.k8s.io/docs/start/?arch=%2Fmacos%2Fx86-64%2Fstable%2Fhomebrew#Service)
