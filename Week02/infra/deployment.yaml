@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: flask-app-test
-        image: capstoneteam1-avd2dagya7gjdhda.azurecr.io/personalproject:v1.0.14   # Update with Jenkins image
+        image: capstoneteam1-avd2dagya7gjdhda.azurecr.io/personalproject:v1.0.15   # Update with Jenkins image
         ports:
         - containerPort: 8081
