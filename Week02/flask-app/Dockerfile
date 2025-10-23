@@ -34,7 +34,7 @@ EXPOSE ${APP_PORT}
 
 # Configurable app name and Gunicorn options
 ARG APP_MODULE=app:app
-ARG GUNICORN_WORKERS=2
+ARG GUNICORN_WORKERS=1
 ARG GUNICORN_THREADS=2
 
 CMD ["gunicorn", "--bind", "0.0.0.0:${APP_PORT}", "${APP_MODULE}", "--workers=${GUNICORN_WORKERS}", "--threads=${GUNICORN_THREADS}"]
