@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: personalproject
-        image: capstoneteam1-avd2dagya7gjdhda.azurecr.io/personalproject:v1.0.72
+        image: capstoneteam1-avd2dagya7gjdhda.azurecr.io/personalproject:v1.0.73
       imagePullSecrets:
       - name: acr-auth
         ports:
