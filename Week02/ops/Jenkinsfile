@@ -14,8 +14,8 @@ pipeline {
                     if (skip) {
                         echo "Skipping build due to commit message."
                         currentBuild.result = 'SUCCESS'
-                        // This will stop the pipeline early
-                        return
+                        // Abort the pipeline
+                        error("Build skipped by [ci skip] in commit message.")
                     }
                     //Checkout the code from the repository
                     checkout scm
