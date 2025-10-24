@@ -56,10 +56,10 @@ pipeline {
                     sh '''
                     echo "Updating deployment manifest with new image tag..."
                     cd Week02/infra
-                    echo "Current deployment manifest:"
+                    echo "CURRENT DEPLOYMENT MANIFEST:"
                     cat deployment.yaml
                     sed -i "s|image:.*|image: $AZURE_TENANT_ID/$APP_NAME:$IMAGE_TAG|g" deployment.yaml
-                    echo "Updated deployment manifest:"
+                    echo "UPDATED DEPLOYMENT MANIFEST:"
                     cat deployment.yaml
                     echo "Pushing updated manifest to GitHub repository..."
 
