@@ -60,6 +60,7 @@ pipeline {
             steps {
                 withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
                     sh '''
+                    echo "Deploying to Kubernetes Cluster..."
                     sudo apt-get update && sudo apt-get install -y gettext
                     echo "Updating deployment manifest with current image tag..."
                     export IMAGE_TAG=v1.0.${BUILD_NUMBER}
