@@ -9,8 +9,17 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the code from the repository
-                checkout scm
+                script {
+                    def skip = sh(script: "git log -1 --pretty=%B | grep -i '\\[ci skip\\]\\|\\[skip ci\\]'", returnStatus: true) == 0
+                    if (skip) {
+                        echo "Skipping build due to commit message."
+                        currentBuild.result = 'SUCCESS'
+                        // This will stop the pipeline early
+                        return
+                    }
+                    //Checkout the code from the repository
+                    checkout scm
+                }
             }
         }
         stage('Run Unit Tests') {
@@ -82,6 +91,7 @@ pipeline {
     post {
         always {
                 junit 'Week02/flask-app/test-results/results.xml'
+                archiveArtifacts artifacts: '**/test-results/*.xml', allowEmptyArchive: true
             cleanWs()
         }
     }
