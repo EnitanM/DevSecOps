@@ -23,7 +23,10 @@ pipeline {
             }
         }
         stage('Build Docker image') {
-            when{expression {return fileExists('Week02/flask-app/Dockerfile')}}
+            when{ 
+                branch 'main' 
+                expression {return fileExists('Week02/flask-app/Dockerfile')}
+            }
             steps {
                 withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
                 sh '''
@@ -49,7 +52,7 @@ pipeline {
         stage('Update Kubernetes Deployment') {
             when { branch 'main' }
             steps {
-                withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
+                withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY'), gitUsernamePassword(credentialsId: 'seniorprojecttoken', gitToolName: '')]) {
                     sh '''
                     echo "Updating deployment manifest with new image tag..."
                     cd Week02/infra
@@ -59,6 +62,11 @@ pipeline {
                     echo "Updated deployment manifest:"
                     cat deployment.yaml
                     echo "Pushing updated manifest to GitHub repository..."
+
+                    git config --global user.name "ci-bot"
+                    git config --global user.email "ci-bot@example.com"
+                    git remote set-url origin https://$GIT_USERNAME:$GIT_PASSWORD@github.com/EnitanM/CI-CD.git
+
                     git add deployment.yaml
                     git commit -m "Updated deployment image to $IMAGE_TAG [ci skip]"
                     git push origin main
