@@ -62,7 +62,7 @@ pipeline {
                     sh '''
                     echo "Updating deployment manifest with current image tag..."
                     export IMAGE_TAG=v1.0.${BUILD_NUMBER}
-                    export IMAGE_NAME=capstoneteam1-avd2dagya7gjdhda.azurecr.io/personalproject:$IMAGE_TAG
+                    export IMAGE_NAME=$AZURE_TENANT_ID/$APP_NAME:$IMAGE_TAG
 
                     # Substitute the image tag in the deployment manifest
                     envsubst < Week02/infra/deployment.yaml > Week02/infra/deployment.generated.yaml
