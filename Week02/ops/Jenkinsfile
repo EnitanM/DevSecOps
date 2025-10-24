@@ -62,7 +62,7 @@ pipeline {
                     sh '''
                     echo "Deploying to Kubernetes Cluster..."
                     cd Week02/infra
-                    sed -i '' 's+$AZURE_TENANT_ID/$APP_NAME:.*+$AZURE_TENANT_ID/$APP_NAME:$IMAGE_TAG+g' deployment.yaml
+                    sed -i '' 's+$AZURE_TENANT_ID.*+$AZURE_TENANT_ID/$APP_NAME:$IMAGE_TAG+g' deployment.yaml
                     kubectl apply -f deployment.yaml
                     '''
                 }

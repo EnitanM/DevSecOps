@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: flask-app-test
-        image: ${IMAGE_NAME} # as constructed in the pipeline
+        image: capstoneteam1-avd2dagya7gjdhda.azurecr.io/personalproject:latest
       imagePullSecrets:
       - name: acr-auth
         ports:
