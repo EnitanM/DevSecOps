@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   name: personalproject
   labels:
-    app: flask-app-test
+    app: personalproject
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: flask-app-test
+      app: personalproject
   template:
     metadata:
       labels:
-        app: flask-app-test
+        app: personalproject
     spec:
       containers:
-      - name: flask-app-test
+      - name: personalproject
         image: capstoneteam1-avd2dagya7gjdhda.azurecr.io/personalproject:latest
       imagePullSecrets:
       - name: acr-auth
