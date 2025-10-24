@@ -60,6 +60,7 @@ pipeline {
             steps {
                 withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
                     sh '''
+                    sudo apt-get update && sudo apt-get install -y gettext
                     echo "Updating deployment manifest with current image tag..."
                     export IMAGE_TAG=v1.0.${BUILD_NUMBER}
                     export IMAGE_NAME=$AZURE_TENANT_ID/$APP_NAME:$IMAGE_TAG
