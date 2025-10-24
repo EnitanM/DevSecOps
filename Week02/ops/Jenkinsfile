@@ -67,6 +67,10 @@ pipeline {
                     git config --global user.email "ci-bot@example.com"
                     git remote set-url origin https://$GIT_USERNAME:$GIT_PASSWORD@github.com/EnitanM/CI-CD.git
 
+                    #Ensure this is the main branch
+                    git checkout main
+                    git pull origin main
+
                     git add deployment.yaml
                     git commit -m "Updated deployment image to $IMAGE_TAG [ci skip]"
                     git push origin main
