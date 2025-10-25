@@ -5,7 +5,7 @@ pipeline {
         IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
     }
     options {timestamps()}
-    triggers { githubPush() } // triggers pipeline on GitHub push events
+    triggers { githubPush() }
     stages {
         stage('Checkout Test scm Skip') {
             steps {
@@ -69,7 +69,6 @@ pipeline {
 
                     #Ensure this is the main branch
                     git checkout main
-                    git pull origin main
 
                     git add deployment.yaml
                     git commit -m "Updated deployment image to $IMAGE_TAG [ci skip]"
@@ -80,9 +79,8 @@ pipeline {
         }
     }
     post {
-        always {
+        success {
                 junit 'Week02/flask-app/test-results/results.xml'
-                archiveArtifacts artifacts: '**/test-results/*.xml', allowEmptyArchive: true
             cleanWs()
         }
     }
