@@ -7,18 +7,6 @@ pipeline {
     options {timestamps()}
     triggers { githubPush() } // triggers pipeline on GitHub push events
     stages {
-        // stage('Check commit message') {
-        //     steps {
-        //         script {
-        //             def skip = sh(script: "git log -1 --pretty=%B | grep -i '\\[ci skip\\]\\|\\[skip ci\\]'", returnStatus: true) == 0
-        //             if (skip) {
-        //                 echo "Skipping build due to commit message."
-        //                 currentBuild.result = 'SUCCESS'
-        //                 return
-        //             }
-        //         }
-        //     }
-        // }
         stage('Checkout') {
             steps {
                 checkout scm
