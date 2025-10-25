@@ -7,8 +7,9 @@ pipeline {
     options {timestamps()}
     triggers { githubPush() } // triggers pipeline on GitHub push events
     stages {
-        stage('Checkout Test scm Skip') {
+        stage('Checkout Test scm skip') {
             steps {
+                scmSkip(deleteBuild: true, skipPattern: '(?i).*\\[(ci skip|skip ci)\\].*')
                 checkout scm
             }
         }
