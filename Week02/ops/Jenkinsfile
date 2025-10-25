@@ -9,6 +9,7 @@ pipeline {
     stages {
         stage('Checkout Test scm skip') {
             steps {
+                scmSkip(deleteBuild: true, skipMessage: 'ci skip', skipWords: ['[ci skip]', '[skip ci]'])
                 checkout scm
             }
         }
