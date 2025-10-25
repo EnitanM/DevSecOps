@@ -10,6 +10,11 @@ pipeline {
         stage('Checkout Test scm Skip') {
             steps {
                 scmSkip(deleteBuild: true, skipPattern: '(?i).*\\[(ci skip|skip ci)\\].*')
+                script {
+                    if (currentBuild.result == 'ABORTED') {
+                        currentBuild.result = 'SUCCESS'
+                    }
+                }
                 checkout scm
             }
         }
