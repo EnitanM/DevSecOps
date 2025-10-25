@@ -9,17 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                script {
-                    def skip = sh(script: "git log -1 --pretty=%B | grep -i '\\[ci skip\\]\\|\\[skip ci\\]'", returnStatus: true) == 0
-                    if (skip) {
-                        echo "Skipping build due to commit message."
-                        currentBuild.result = 'SUCCESS'
-                        // Abort the pipeline
-                        error("Build skipped by [ci skip] in commit message.")
-                    }
-                    //Checkout the code from the repository
-                    checkout scm
-                }
+                checkout scm
             }
         }
         stage('Run Unit Tests') {
@@ -34,7 +24,7 @@ pipeline {
         stage('Build Docker image') {
             when{ 
                 branch 'main' 
-                expression {return fileExists('Week02/flask-app/Dockerfile')}
+                expression { fileExists('Week02/flask-app/Dockerfile')}
             }
             steps {
                 withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
