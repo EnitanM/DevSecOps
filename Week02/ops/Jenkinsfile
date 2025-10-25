@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                scmSkip(deleteBuild: true, skipPattern: '(?i).*\\[(ci skip|skip ci)\\].*')
+                scmSkip(deleteBuild: false, skipPattern: '(?i).*\\[(ci skip|skip ci)\\].*')
                 script {
                     if (currentBuild.result == 'ABORTED') {
                         currentBuild.result = 'SUCCESS'
