@@ -9,13 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                scmSkip(deleteBuild: false, skipPattern: '(?i).*\\[(ci skip|skip ci)\\].*')
-                script {
-                    if (currentBuild.result == 'ABORTED') {
-                        // Mark as SUCCESS so GitHub gets a green check
-                        currentBuild.result = 'SUCCESS'
-                    }
-                }
+                scmSkip(deleteBuild: true, skipPattern: '(?i).*\\[(ci skip|skip ci)\\].*')
                 checkout scm
             }
         }
