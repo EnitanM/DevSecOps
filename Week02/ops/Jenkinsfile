@@ -86,7 +86,6 @@ pipeline {
     post {
         always {
                 junit 'Week02/flask-app/test-results/results.xml'
-                archiveArtifacts artifacts: '**/test-results/*.xml', allowEmptyArchive: true
             cleanWs()
         }
     }
