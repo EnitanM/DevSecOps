@@ -13,15 +13,6 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Build Test Docker Image') {
-            steps {
-                sh '''
-                echo "Building Docker image for tests..."
-                cd Week02/flask-app
-                docker compose up --build
-                '''
-            }
-        }
         stage('Run Unit Tests') {
             steps {
             sh '''
