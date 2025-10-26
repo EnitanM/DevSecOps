@@ -13,11 +13,20 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Build Test Docker Image') {
+            steps {
+                sh '''
+                echo "Building Docker image for tests..."
+                cd Week02/flask-app
+                docker compose up --build
+                '''
+            }
+        }
         stage('Run Unit Tests') {
             steps {
             sh '''
                 echo "Running Unit Tests..."
-                docker run --rm -v $PWD/Week02/flask-app:/app -w /app personalproject \
+                docker run --rm -v $PWD/Week02/flask-app:/app -w /app personalproject:latest \
                 /bin/bash -c "pytest tests.py --junitxml=test-results/results.xml"
             '''
             }
