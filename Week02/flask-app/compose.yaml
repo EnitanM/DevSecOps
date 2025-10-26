@@ -3,6 +3,6 @@ services:
   server:
     build:
       context: .
-    image: personalproject:latest .
+    image: personalproject:latest
     ports:
       - 8081:8081
