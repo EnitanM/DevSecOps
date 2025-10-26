@@ -17,7 +17,7 @@ pipeline {
             steps {
             sh '''
                 echo "Running Unit Tests..."
-                docker run --rm -v $PWD/Week02/flask-app:/app -w /app personalproject:latest \
+                docker run --rm -v $PWD/Week02/flask-app:/app -w /app personalproject \
                 /bin/bash -c "pytest tests.py --junitxml=test-results/results.xml"
             '''
             }
