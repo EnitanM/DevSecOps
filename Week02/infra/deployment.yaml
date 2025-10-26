@@ -19,5 +19,3 @@ spec:
         image: capstoneteam1-avd2dagya7gjdhda.azurecr.io/personalproject:v1.0.114
       imagePullSecrets:
       - name: acr-auth
-        ports:
-        - containerPort: 8081
