@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout Test scm Skip') {
             steps {
-                scmSkip(deleteBuild: true, skipPattern: '(?i).*\\[(ci skip|skip ci)\\].*')
+                scmSkip(deleteBuild: true)
                 checkout scm
             }
         }
