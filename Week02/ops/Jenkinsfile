@@ -4,6 +4,7 @@ pipeline {
         APP_NAME = "personalproject"
         IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
         DOCKER_IMAGE = "${APP_NAME}:test"
+        DOCKER_REGISTRY = "enitanm"
     }
     options {timestamps()}
     triggers { githubPush() }
@@ -37,7 +38,7 @@ pipeline {
             steps {
             sh '''
                 echo "Running Unit Tests..."
-                docker run --rm -v $PWD/Week02/flask-app:/app -w /app personalproject:test \
+                docker run --rm -v $PWD/Week02/flask-app:/app -w /app $DOCKER_IMAGE \
                 /bin/bash -c "pytest tests.py --junitxml=test-results/results.xml"
             '''
             }
@@ -48,37 +49,35 @@ pipeline {
                 expression { fileExists('Week02/flask-app/Dockerfile')}
             }
             steps {
-                withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
                 sh '''
                 echo "Building Docker Image..."
                 cd Week02/flask-app
-                docker build -t $AZURE_TENANT_ID/$APP_NAME:$IMAGE_TAG .
+                docker build -t $DOCKER_REGISTRY/$APP_NAME:$IMAGE_TAG .
                 '''
-                }
             }
         }
         stage('Push to Registry') {
             when { branch 'main' }
             steps {
-            withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY')]) {
-                sh '''
-                echo "Pushing Docker Image to Registry..."
-                echo $AZURE_CLIENT_SECRET | docker login $AZURE_TENANT_ID -u $AZURE_CLIENT_ID --password-stdin
-                docker push $AZURE_TENANT_ID/$APP_NAME:$IMAGE_TAG
-                '''
-            }
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
+                    sh '''
+                    echo "Pushing Docker Image to Registry..."
+                    echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
+                    docker push $DOCKER_REGISTRY/$APP_NAME:$IMAGE_TAG
+                    '''
+                }
             }
         }
         stage('Update Kubernetes Deployment') {
             when { branch 'main' }
             steps {
-                withCredentials([azureServicePrincipal('AZURE_CONTAINER_REGISTRY'), gitUsernamePassword(credentialsId: 'seniorprojecttoken', gitToolName: '')]) {
+                withCredentials([gitUsernamePassword(credentialsId: 'seniorprojecttoken', gitToolName: '')]) {
                     sh '''
                     echo "Updating deployment manifest with new image tag..."
                     cd Week02/infra
                     echo "CURRENT DEPLOYMENT MANIFEST:"
                     cat deployment.yaml
-                    sed -i "s|image:.*|image: $AZURE_TENANT_ID/$APP_NAME:$IMAGE_TAG|g" deployment.yaml
+                    sed -i "s|image:.*|image: $DOCKER_REGISTRY/$APP_NAME:$IMAGE_TAG|g" deployment.yaml
                     echo "UPDATED DEPLOYMENT MANIFEST:"
                     cat deployment.yaml
                     echo "Pushing updated manifest to GitHub repository..."
@@ -100,7 +99,7 @@ pipeline {
     }
     post {
         success {
-                junit 'Week02/flask-app/test-results/results.xml'
+            junit 'Week02/flask-app/test-results/results.xml'
             cleanWs()
         }
         failure {
