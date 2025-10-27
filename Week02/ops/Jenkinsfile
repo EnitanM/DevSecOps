@@ -15,6 +15,7 @@ pipeline {
             }
         }
         stage('View Docker Images') {
+            when { branch 'feature' }
             steps {
                 sh '''
                 docker images
