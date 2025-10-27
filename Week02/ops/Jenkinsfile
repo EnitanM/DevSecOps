@@ -16,7 +16,10 @@ pipeline {
         }
         stage('View Docker Images') {
             steps {
-                sh 'docker images'
+                sh '''
+                docker images
+                docker rmi -f $(docker images -q)
+                '''
             }
         }
         stage('Build Test Docker Image') {
