@@ -84,7 +84,7 @@ pipeline {
 
                     git config --global user.name "ci-bot"
                     git config --global user.email "ci-bot@example.com"
-                    git remote set-url origin git@github.com:EnitanM/CI-CD.git
+                    git remote set-url origin https://$GIT_USERNAME:$GIT_PASSWORD@github.com/EnitanM/CI-CD.git
 
                     #Ensure this is the main branch
                     git checkout main
