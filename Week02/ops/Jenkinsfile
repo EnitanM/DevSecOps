@@ -4,6 +4,7 @@ pipeline {
         APP_NAME = "personalproject"
         IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
         DOCKER_IMAGE = "${APP_NAME}:test"
+        ACR_NAME = "capstoneteam1"
     }
     options {timestamps()}
     triggers { githubPush() }
@@ -52,7 +53,7 @@ pipeline {
                 sh '''
                 echo "Building Docker Image..."
                 cd Week02/flask-app
-                docker build -t $AZURE_TENANT_ID/$APP_NAME:$IMAGE_TAG .
+                docker build -t $ACR_NAME.azurecr.io/$APP_NAME:$IMAGE_TAG .
                 '''
                 }
             }
@@ -64,7 +65,7 @@ pipeline {
                 sh '''
                 echo "Pushing Docker Image to Registry..."
                 echo $AZURE_CLIENT_SECRET | docker login $AZURE_TENANT_ID -u $AZURE_CLIENT_ID --password-stdin
-                docker push $AZURE_TENANT_ID/$APP_NAME:$IMAGE_TAG
+                docker push $ACR_NAME.azurecr.io/$APP_NAME:$IMAGE_TAG
                 '''
             }
             }
