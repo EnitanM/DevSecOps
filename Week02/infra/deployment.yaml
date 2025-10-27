@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: personalproject
-        image: capstoneteam1-avd2dagya7gjdhda.azurecr.io/personalproject:v1.0.100
+        image: enitanm/personalproject:v1.0.19
       imagePullSecrets:
-      - name: acr-auth
+      - name: dockerhub-auth
