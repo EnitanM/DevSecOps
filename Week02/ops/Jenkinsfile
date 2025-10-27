@@ -18,7 +18,7 @@ pipeline {
             when { branch 'feature' }
             steps {
                 sh '''
-                echo "Viewing and Cleaning up Docker images in feature branch..."
+                echo "Viewing and Cleaning up Docker images..."
                 docker images
                 docker rmi -f $(docker images -q)
                 '''
