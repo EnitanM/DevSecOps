@@ -19,7 +19,7 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
 COPY requirements.txt .
-COPY ./flask-app ./flask-app
+COPY . .
 
 RUN apt-get update && \
     apt-get install -y curl && \
