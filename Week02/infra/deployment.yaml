@@ -1,0 +1,22 @@
+# Changes made to manifest files such as this are the 'live' versions referred to in ArgoCD's U.I
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: personalproject
+  labels:
+    app: personalproject
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: personalproject
+  template:
+    metadata:
+      labels:
+        app: personalproject
+    spec:
+      containers:
+      - name: personalproject
+        image: enitanm/personalproject:v1.0.21
+      imagePullSecrets:
+      - name: acr-auth
