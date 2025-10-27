@@ -14,6 +14,11 @@ pipeline {
                 checkout scm
             }
         }
+        stage('View Docker Images') {
+            steps {
+                sh 'docker images'
+            }
+        }
         stage('Build Test Docker Image') {
             steps {
                 sh '''
