@@ -3,6 +3,7 @@ pipeline {
     environment{
         APP_NAME = "personalproject"
         IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
+        DOCKER_IMAGE = "${APP_NAME}:test"
     }
     options {timestamps()}
     triggers { githubPush() }
@@ -13,11 +14,20 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Build Test Docker Image') {
+            steps {
+                sh '''
+                    echo "Building Docker image for unit tests..."
+                    cd Week02/flask-app
+                    docker build -t $DOCKER_IMAGE .
+                '''
+            }
+        }
         stage('Run Unit Tests') {
             steps {
             sh '''
                 echo "Running Unit Tests..."
-                docker run --rm -v $PWD/Week02/flask-app:/app -w /app personalproject:latest \
+                docker run --rm -v $PWD/Week02/flask-app:/app -w /app personalproject:test \
                 /bin/bash -c "pytest tests.py --junitxml=test-results/results.xml"
             '''
             }
@@ -81,6 +91,12 @@ pipeline {
     post {
         success {
                 junit 'Week02/flask-app/test-results/results.xml'
+            cleanWs()
+        }
+        failure {
+            cleanWs()
+        }
+        aborted {
             cleanWs()
         }
     }
