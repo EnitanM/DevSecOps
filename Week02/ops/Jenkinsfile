@@ -9,7 +9,7 @@ pipeline {
     options {timestamps()}
     triggers { githubPush() }
     stages {
-        stage('Checkout Test scm Skip') {
+        stage('Checkout') {
             steps {
                 scmSkip(deleteBuild: true)
                 checkout scm
