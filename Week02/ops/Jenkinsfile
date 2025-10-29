@@ -74,12 +74,12 @@ pipeline {
                 withCredentials([gitUsernamePassword(credentialsId: 'seniorprojecttoken', gitToolName: '')]) {
                     sh '''
                     echo "Updating deployment manifest with new image tag..."
-                    cd Week02/infra
-                    echo "CURRENT DEPLOYMENT MANIFEST:"
-                    cat deployment.yaml
-                    sed -i "s|image:.*|image: $DOCKER_REGISTRY/$APP_NAME:$IMAGE_TAG|g" deployment.yaml
-                    echo "UPDATED DEPLOYMENT MANIFEST:"
-                    cat deployment.yaml
+                    cd Week02/infra/helm/flask-app
+                    echo "CURRENT VALUES MANIFEST:"
+                    cat Values.yaml
+                    sed -i "s|tag:.*|tag: ${IMAGE_TAG}|g" Values.yaml
+                    echo "UPDATED VALUES MANIFEST:"
+                    cat Values.yaml
                     echo "Pushing updated manifest to GitHub repository..."
 
                     git remote set-url origin https://$GIT_USERNAME:$GIT_PASSWORD@github.com/EnitanM/CI-CD.git
