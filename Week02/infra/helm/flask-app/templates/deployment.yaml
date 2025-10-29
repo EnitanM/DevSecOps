@@ -6,7 +6,7 @@ metadata:
   labels:
     app: personalproject
 spec:
-  replicas: {{ .values.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: personalproject
