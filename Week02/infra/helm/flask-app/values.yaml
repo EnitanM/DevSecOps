@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: enitanm/personalproject
-  tag: v1.0.35
+  tag: v1.0.36
   pullPolicy: IfNotPresent
 
 service:
