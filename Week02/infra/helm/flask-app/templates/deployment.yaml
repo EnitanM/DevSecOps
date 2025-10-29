@@ -18,7 +18,7 @@ spec:
       containers:
       - name: personalproject
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        imagePullPolicy: "{{ .Values.image.pullPolicy }}"
         ports:
         - containerPort: 8081
       imagePullSecrets:
