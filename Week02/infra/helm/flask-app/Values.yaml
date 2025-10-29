@@ -1,8 +1,10 @@
+replicaCount: 1
+
 image:
   repository: enitanm/personalproject
   tag: ${BUILD_NUMBER}
   pullPolicy: IfNotPresent
-replicaCount: 1
+
 service:
   type: NodePort
   port: 8081
