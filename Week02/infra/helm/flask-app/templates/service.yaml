@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: personalproject-service
 spec:
-  type: "{{ .Values.service.type }}"
+  type: "{{ .values.service.type }}"
   selector:
     app: personalproject
   type: "{{ .Values.service.type }}"
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.port }}
-      nodePort: {{ .Values.service.nodePort }}
+    - port: {{ .values.service.port }}
+      targetPort: {{ .values.service.port }}
+      nodePort: {{ .values.service.nodePort }}

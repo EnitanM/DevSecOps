@@ -6,7 +6,7 @@ metadata:
   labels:
     app: personalproject
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .values.replicaCount }}
   selector:
     matchLabels:
       app: personalproject
@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
       - name: personalproject
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+        image: "{{ .values.image.repository }}:{{ .values.image.tag }}"
+        imagePullPolicy: "{{ .values.image.pullPolicy }}"
         ports:
         - containerPort: 8081
       imagePullSecrets:
