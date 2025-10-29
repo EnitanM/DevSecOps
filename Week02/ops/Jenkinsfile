@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment{
         APP_NAME = "personalproject"
-        IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
+        IMAGE_TAG = "v2.0.${BUILD_NUMBER}"
         DOCKER_IMAGE = "${APP_NAME}:test"
         DOCKER_REGISTRY = "enitanm"
     }
