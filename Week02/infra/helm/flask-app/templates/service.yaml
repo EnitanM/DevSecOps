@@ -3,10 +3,9 @@ kind: Service
 metadata:
   name: personalproject-service
 spec:
-  type: NodePort
+  type: "{{ .Values.service.type }}"
   selector:
     app: personalproject
-  type: "{{ .Values.service.type }}"
   ports:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.port }}
