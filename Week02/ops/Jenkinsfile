@@ -76,10 +76,10 @@ pipeline {
                     echo "Updating deployment manifest with new image tag..."
                     cd Week02/infra/helm/flask-app
                     echo "CURRENT VALUES MANIFEST:"
-                    cat Values.yaml
-                    sed -i "s|tag:.*|tag: ${IMAGE_TAG}|g" Values.yaml
+                    cat values.yaml
+                    sed -i "s|tag:.*|tag: ${IMAGE_TAG}|g" values.yaml
                     echo "UPDATED VALUES MANIFEST:"
-                    cat Values.yaml
+                    cat values.yaml
                     echo "Pushing updated manifest to GitHub repository..."
 
                     git remote set-url origin https://$GIT_USERNAME:$GIT_PASSWORD@github.com/EnitanM/CI-CD.git
@@ -87,7 +87,7 @@ pipeline {
                     #Ensure this is the main branch
                     git checkout main
 
-                    git add Values.yaml
+                    git add values.yaml
                     git commit -m "Updated image tag to $IMAGE_TAG [ci skip]"
                     git push origin main
                     '''
