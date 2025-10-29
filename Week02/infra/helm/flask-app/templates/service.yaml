@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: personalproject-service
 spec:
-  type: "{{ .values.service.type }}"
+  type: "{{ .Values.service.type }}"
   selector:
     app: personalproject
   ports:
