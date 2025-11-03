@@ -44,11 +44,17 @@ pipeline {
             }
         }
         stage('Run Trivy Scan') {
-            // when { branch 'main' }
+            // when{branch 'main'}
             steps {
                 sh '''
-                echo "Scanning Docker image with Trivy.."
-                trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE
+                echo "Scanning Docker image with Trivy..."
+                if ! command -v trivy > /dev/null; then
+                echo "Installing Trivy..."
+                mkdir -p $HOME/bin
+                curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b $HOME/bin
+                fi
+                export PATH="$HOME/bin:$PATH"
+                trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE | tee Week02/triy-report.txt
                 '''
             }
         }
