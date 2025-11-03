@@ -43,8 +43,7 @@ pipeline {
             '''
             }
         }
-        stage('Run Trivy Scan') {
-            // when{branch 'main'}
+        stage('Run Security Scan - Trivy') {
             steps {
                 sh '''
                 echo "Scanning Docker image with Trivy..."
