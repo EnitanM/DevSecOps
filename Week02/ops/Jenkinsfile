@@ -47,7 +47,7 @@ pipeline {
             // when { branch 'main' }
             steps {
                 sh '''
-                echo "Scanning Docker image with Trivy..."
+                echo "Scanning Docker image with Trivy.."
                 trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE
                 '''
             }
