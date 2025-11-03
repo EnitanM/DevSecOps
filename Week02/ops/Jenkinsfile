@@ -43,6 +43,21 @@ pipeline {
             '''
             }
         }
+        stage('Run Security Scan - Trivy') {
+            steps {
+                sh '''
+                echo "Scanning Docker image with Trivy..."
+                if ! command -v trivy > /dev/null; then
+                echo "Installing Trivy..."
+                mkdir -p $HOME/bin
+                curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b $HOME/bin
+                fi
+                export PATH="$HOME/bin:$PATH"
+                mkdir -p Week02
+                trivy image --exit-code 1 --severity HIGH,CRITICAL --format table $DOCKER_IMAGE | tee Week02/trivy-report.txt || true
+                '''
+            }
+        }
         stage('Build Docker image') {
             when{ 
                 branch 'main' 
@@ -96,14 +111,9 @@ pipeline {
         }
     }
     post {
-        success {
+        always {
             junit 'Week02/flask-app/test-results/results.xml'
-            cleanWs()
-        }
-        failure {
-            cleanWs()
-        }
-        aborted {
+            archiveArtifacts artifacts: 'Week02/trivy-report.txt', allowEmptyArchive: true
             cleanWs()
         }
     }
