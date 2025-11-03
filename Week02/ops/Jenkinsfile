@@ -54,7 +54,7 @@ pipeline {
                 curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b $HOME/bin
                 fi
                 export PATH="$HOME/bin:$PATH"
-                trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE | tee Week02/triy-report.txt
+                trivy image --exit-code 1 --severity HIGH,CRITICAL --format table $DOCKER_IMAGE | tee Week02/trivy-report.txt
                 '''
             }
         }
@@ -113,7 +113,7 @@ pipeline {
     post {
         always {
             junit 'Week02/flask-app/test-results/results.xml'
-            archiveArtifacts artifacts: 'Week02/triy-report.txt', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'Week02/trivy-report.txt', allowEmptyArchive: true
             cleanWs()
         }
     }
