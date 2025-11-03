@@ -55,7 +55,7 @@ pipeline {
                 fi
                 export PATH="$HOME/bin:$PATH"
                 mkdir -p Week02
-                trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE | tee Week02/trivy-report.txt || true
+                trivy image --exit-code 1 --severity HIGH,CRITICAL --format table $DOCKER_IMAGE | tee Week02/trivy-report.txt || true
                 '''
             }
         }
