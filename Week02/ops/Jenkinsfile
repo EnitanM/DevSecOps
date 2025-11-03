@@ -54,7 +54,7 @@ pipeline {
                 curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b $HOME/bin
                 fi
                 export PATH="$HOME/bin:$PATH"
-                cd Week02
+                mkdir -p Week02
                 trivy image --exit-code 1 --severity HIGH,CRITICAL $DOCKER_IMAGE | tee Week02/trivy-report.txt || true
                 '''
             }
