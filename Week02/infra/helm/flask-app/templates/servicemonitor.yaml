@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ .Values.appName }}-servicemonitor
+  name: "{{ .Values.appName }}-servicemonitor"
   namespace: argocd
   labels:
     release: prometheus
