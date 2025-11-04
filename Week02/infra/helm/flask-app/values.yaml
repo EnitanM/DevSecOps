@@ -1,6 +1,6 @@
 replicaCount: 1
 revisionHistoryLimit: 3
-appName: capstoneproject
+appName: capstoneproject1
 
 image:
   repository: enitanm/personalproject
