@@ -1,6 +1,10 @@
 from flask import Flask
+from prometheus_flask_exporter import PrometheusMetrics
+
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 team_number = 1 
+
 @app.route('/')
 def hello_world():
     return f'This is Team {team_number}\'s Flask app!'

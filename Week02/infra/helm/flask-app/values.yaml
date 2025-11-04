@@ -1,4 +1,6 @@
 replicaCount: 1
+revisionHistoryLimit: 3
+appName: personalproject
 
 image:
   repository: enitanm/personalproject
