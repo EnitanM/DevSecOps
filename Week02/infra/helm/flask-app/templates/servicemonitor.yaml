@@ -12,7 +12,7 @@ spec:
       port: metrics
   selector:
     matchLabels:
-      app: personalproject
+      app: "{{ .Values.appName }}"
   namespaceSelector:
     matchNames:
       - argocd
