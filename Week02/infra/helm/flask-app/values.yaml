@@ -4,7 +4,7 @@ appName: personalproject
 
 image:
   repository: enitanm/personalproject
-  tag: v2.0.48
+  tag: v2.0.49
   pullPolicy: IfNotPresent
 
 service:
