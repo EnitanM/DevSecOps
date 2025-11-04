@@ -32,7 +32,6 @@ spec:
   selector:
     matchLabels:
       app: personalproject
-    serviceMonitorNamespaceSelector:
-      matchNames:
-        - argocd
-    serviceMonitorSelector: {}
+  namespaceSelector:
+    matchNames:
+      - argocd
