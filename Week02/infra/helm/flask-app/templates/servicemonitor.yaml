@@ -1,26 +1,7 @@
-# apiVersion: monitoring.coreos.com/v1
-# kind: ServiceMonitor
-# metadata:
-#   name: "{{ .Values.appName }}-servicemonitor"
-#   namespace: argocd
-#   labels:
-#     release: prometheus
-# spec:
-#   endpoints:
-#     - interval: 30s
-#       path: /metrics
-#       port: metrics
-#   selector:
-#     matchLabels:
-#       app: personalproject
-#     serviceMonitorNamespaceSelector:
-#       matchNames:
-#         - argocd
-#     serviceMonitorSelector: {}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: personalproject-servicemonitor
+  name: "{{ .Values.appName }}-servicemonitor"
   namespace: argocd
   labels:
     release: prometheus
