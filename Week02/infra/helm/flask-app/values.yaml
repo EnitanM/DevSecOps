@@ -10,6 +10,6 @@ image:
 service:
   type: NodePort
   port: 8082
-  nodePort: 30008
+  nodePort: 30009
 
 resources: {}
