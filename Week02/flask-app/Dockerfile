@@ -28,10 +28,6 @@ RUN apt-get update && \
     pip install pytest
 
 # Expose configurable port
-ENV APP_PORT=8082
-ENV APP_MODULE=app:app
-ENV GUNICORN_WORKERS=1
-ENV GUNICORN_THREADS=2
-EXPOSE ${APP_PORT}
+EXPOSE 8082
 
-CMD gunicorn --bind 0.0.0.0:${APP_PORT} ${APP_MODULE}
+CMD ["gunicorn", "--bind", "0.0.0.0:8082", "app:app"]
