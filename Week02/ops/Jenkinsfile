@@ -72,7 +72,7 @@ pipeline {
                     export PATH="$HOME/bin:$PATH"
                     mkdir -p Week02
                     echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
-                    docker-scout cves $DOCKER_IMAGE --exit-code --only-severity critical,high --format table | tee Week02/scout-report.txt
+                    docker-scout cves image://$DOCKER_IMAGE --exit-code --only-severity critical,high --format table | tee Week02/scout-report.txt
                     '''
                 }
             }
