@@ -57,7 +57,7 @@ def hello_world():
     <body>
         <div class="container">
             <h1>Welcome!</h1>
-            <p>This is a simple app developed to explore DevSecOps concepts.</p>
+            <p>This is a minor change to test overall release time</p>
         </div>
     </body>
     </html>
