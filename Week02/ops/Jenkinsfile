@@ -111,7 +111,7 @@ pipeline {
 
                     git add values.yaml
                     git commit -m "Updated image tag to $IMAGE_TAG [ci skip]"
-                    git push origin main 
+                    git push origin main
                     '''
                 }
             }
