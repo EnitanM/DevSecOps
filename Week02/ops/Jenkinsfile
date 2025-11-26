@@ -108,7 +108,7 @@ pipeline {
 
                     #Ensure this is the main branch
                     git checkout main
-
+                    git pull origin main
                     git add values.yaml
                     git commit -m "Updated image tag to $IMAGE_TAG [ci skip]"
                     git push origin main
