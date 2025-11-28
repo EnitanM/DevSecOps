@@ -26,12 +26,12 @@ pipeline {
         }
         stage('Build Test Docker Image') {
             when{ 
-                expression { fileExists('Week02/flask-app/Dockerfile')}
+                expression { fileExists('src/flask-app/Dockerfile')}
             }
             steps {
                 sh '''
                     echo "Building Docker image for unit tests..."
-                    cd Week02/flask-app
+                    cd src/flask-app
                     docker build -t $DOCKER_IMAGE .
                 '''
             }
@@ -40,7 +40,7 @@ pipeline {
             steps {
             sh '''
                 echo "Running Unit Tests..."
-                docker run --rm -v $PWD/Week02/flask-app:/app -w /app $DOCKER_IMAGE \
+                docker run --rm -v $PWD/src/flask-app:/app -w /app $DOCKER_IMAGE \
                 /bin/bash -c "pytest tests.py --junitxml=test-results/results.xml"
             '''
             }
@@ -55,8 +55,8 @@ pipeline {
                 curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b $HOME/bin
                 fi
                 export PATH="$HOME/bin:$PATH"
-                mkdir -p Week02
-                trivy image --exit-code 1 --severity HIGH,CRITICAL --format table $DOCKER_IMAGE | tee Week02/trivy-report.txt
+                mkdir -p Reports
+                trivy image --exit-code 1 --severity HIGH,CRITICAL --format table $DOCKER_IMAGE | tee Reports/trivy-report.txt
                 '''
             }
         }
@@ -70,9 +70,9 @@ pipeline {
                     curl -sfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s -- -b $HOME/bin
                     fi
                     export PATH="$HOME/bin:$PATH"
-                    mkdir -p Week02
+                    mkdir -p Reports
                     echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
-                    docker-scout cves $DOCKER_REGISTRY/$DOCKER_IMAGE:v2.0.3 --exit-code --only-severity critical,high --format markdown | tee Week02/scout-report.md
+                    docker-scout cves $DOCKER_REGISTRY/$DOCKER_IMAGE:v2.0.3 --exit-code --only-severity critical,high --format markdown | tee Reports/scout-report.md
                     '''
                 }
             }
@@ -96,7 +96,7 @@ pipeline {
                 withCredentials([gitUsernamePassword(credentialsId: 'seniorprojecttoken', gitToolName: '')]) {
                     sh '''
                     echo "Updating deployment manifest with new image tag..."
-                    cd Week02/infra/helm/flask-app
+                    cd src/infra/helm/flask-app
                     echo "CURRENT VALUES MANIFEST:"
                     cat values.yaml
                     sed -i "s|tag:.*|tag: ${IMAGE_TAG}|g" values.yaml
@@ -119,9 +119,9 @@ pipeline {
     }
     post {
         always {
-            junit 'Week02/flask-app/test-results/results.xml'
-            archiveArtifacts artifacts: 'Week02/trivy-report.txt', allowEmptyArchive: true
-            archiveArtifacts artifacts: 'Week02/scout-report.md', allowEmptyArchive: true
+            junit 'src/flask-app/test-results/results.xml'
+            archiveArtifacts artifacts: 'Reports/trivy-report.txt', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'Reports/scout-report.md', allowEmptyArchive: true
             cleanWs()
         }
     }
