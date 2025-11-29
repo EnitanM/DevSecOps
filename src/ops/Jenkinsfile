@@ -63,6 +63,7 @@ pipeline {
                 sh'''
                 echo "Testing script"
                 chmod +x ./src/flask-app/run.sh
+                ./src/flask-app/run.sh
                 '''
             }
         } 
