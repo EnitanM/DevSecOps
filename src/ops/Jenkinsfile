@@ -87,7 +87,7 @@ pipeline {
                     cat values.yaml
                     echo "Pushing updated manifest to GitHub repository..."
 
-                    git remote set-url origin https://$GIT_USERNAME:$GIT_PASSWORD@github.com/EnitanM/CI-CD.git
+                    git remote set-url origin $GIT_URL
 
                     #Ensure this is the main branch
                     git checkout main
