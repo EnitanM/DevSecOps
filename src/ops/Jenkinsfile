@@ -15,16 +15,7 @@ pipeline {
                 checkout scm
             }
         }
-        stage('View Docker Images') {
-            when { branch 'feature' }
-            steps {
-                sh '''
-                echo "Viewing and Cleaning up Docker images"
-                docker images
-                '''
-            }
-        }
-        stage('Build Test Docker Image') {
+        stage('Run Unit Tests') {
             when{ 
                 expression { fileExists('src/flask-app/Dockerfile')}
             }
@@ -34,18 +25,14 @@ pipeline {
                     cd src/flask-app
                     docker build -t $DOCKER_IMAGE .
                 '''
-            }
-        }
-        stage('Run Unit Tests') {
-            steps {
-            sh '''
+                sh '''
                 echo "Running Unit Tests..."
                 docker run --rm -v $PWD/src/flask-app:/app -w /app $DOCKER_IMAGE \
                 /bin/bash -c "pytest tests.py --junitxml=test-results/results.xml"
-            '''
+                '''
             }
         }
-        stage('Run Security Scan - Trivy') {
+        stage('Run Security Scans') {
             steps {
                 sh '''
                 echo "Scanning Docker image with Trivy..."
@@ -58,10 +45,6 @@ pipeline {
                 mkdir -p Reports
                 trivy image --exit-code 1 --severity HIGH,CRITICAL --format table $DOCKER_IMAGE | tee Reports/trivy-report.txt
                 '''
-            }
-        }
-        stage('Run Security Scan - Docker Scout') {
-            steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
                     sh '''
                     echo "Scanning Docker image with Docker Scout..."
@@ -72,11 +55,11 @@ pipeline {
                     export PATH="$HOME/bin:$PATH"
                     mkdir -p Reports
                     echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
-                    docker-scout cves $DOCKER_REGISTRY/$DOCKER_IMAGE:v2.0.3 --exit-code --only-severity critical,high --format markdown | tee Reports/scout-report.md
+                    docker-scout cves $DOCKER_REGISTRY/$DOCKER_IMAGE:v2.0.11 --exit-code --only-severity critical,high --format markdown | tee Reports/scout-report.md
                     '''
                 }
             }
-        }   
+        } 
         stage('Push to Registry') {
             when { branch 'main' }
             steps {
@@ -104,7 +87,7 @@ pipeline {
                     cat values.yaml
                     echo "Pushing updated manifest to GitHub repository..."
 
-                    git remote set-url origin https://$GIT_USERNAME:$GIT_PASSWORD@github.com/EnitanM/CI-CD.git
+                    git remote set-url origin $GIT_URL
 
                     #Ensure this is the main branch
                     git checkout main
