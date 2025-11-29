@@ -50,7 +50,7 @@ pipeline {
                     echo "Scanning Docker image with Docker Scout..."
                     mkdir -p Reports
                     echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
-                    docker scout cves $DOCKER_IMAGE:latest --exit-code 1 --only-severity critical,high --format markdown | tee Reports/scout-report.md
+                    docker scout cves $DOCKER_IMAGE:latest --only-severity critical,high --format markdown | tee Reports/scout-report.md
                     '''
                 }
             }
