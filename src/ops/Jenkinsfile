@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'docker:latest' // or your preferred image
+            args '-v /var/run/docker.sock:/var/run/docker.sock' // optional: mount Docker socket
+        }
+    }
     environment{
         APP_NAME = "personalproject"
         IMAGE_TAG = "v2.0.${BUILD_NUMBER}"
