@@ -55,7 +55,7 @@ pipeline {
                     export PATH="$HOME/bin:$PATH"
                     mkdir -p Reports
                     echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
-                    docker scout cves $DOCKER_IMAGE:latest --exit-code --only-severity critical,high --format markdown | tee Reports/scout-report.md
+                    docker-scout cves $DOCKER_IMAGE:latest --exit-code --only-severity critical,high --format markdown | tee Reports/scout-report.md
                     '''
                 }
             }
