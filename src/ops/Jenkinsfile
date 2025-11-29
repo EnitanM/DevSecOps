@@ -50,6 +50,7 @@ pipeline {
                     echo "Scanning Docker image with Docker Scout..."
                     if ! command -v scout > /dev/null; then
                     echo "Installing Docker Scout..."
+                    mkdir -p $HOME/bin
                     curl -sfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s -- -b $HOME/bin
                     fi
                     export PATH="$HOME/bin:$PATH"
