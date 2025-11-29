@@ -23,11 +23,11 @@ pipeline {
                 sh '''
                     echo "Building Docker image for unit tests..."
                     cd src/flask-app
-                    docker build -t $DOCKER_IMAGE:latest .
+                    docker build -t $DOCKER_IMAGE:$IMAGE_TAG .
                 '''
                 sh '''
                 echo "Running Unit Tests..."
-                docker run --rm -v $PWD/src/flask-app:/app -w /app $DOCKER_IMAGE:latest \
+                docker run --rm -v $PWD/src/flask-app:/app -w /app $DOCKER_IMAGE:$IMAGE_TAG \
                 /bin/bash -c "pytest tests.py --junitxml=test-results/results.xml"
                 '''
             }
@@ -55,7 +55,7 @@ pipeline {
                     export PATH="$HOME/bin:$PATH"
                     mkdir -p Reports
                     echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
-                    docker-scout cves $DOCKER_IMAGE:latest --exit-code --only-severity critical,high --format markdown | tee Reports/scout-report.md
+                    docker-scout cves $DOCKER_REGISTRY/$DOCKER_IMAGE:$IMAGE_TAG --exit-code --only-severity critical,high --format markdown | tee Reports/scout-report.md
                     '''
                 }
             }
