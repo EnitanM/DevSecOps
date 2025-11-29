@@ -15,16 +15,7 @@ pipeline {
                 checkout scm
             }
         }
-        stage('View Docker Images') {
-            when { branch 'feature' }
-            steps {
-                sh '''
-                echo "Viewing and Cleaning up Docker images"
-                docker images
-                '''
-            }
-        }
-        stage('Build Test Docker Image') {
+        stage('Run Unit Tests') {
             when{ 
                 expression { fileExists('src/flask-app/Dockerfile')}
             }
@@ -35,8 +26,6 @@ pipeline {
                     docker build -t $DOCKER_IMAGE .
                 '''
             }
-        }
-        stage('Run Unit Tests') {
             steps {
             sh '''
                 echo "Running Unit Tests..."
@@ -45,7 +34,7 @@ pipeline {
             '''
             }
         }
-        stage('Run Security Scan - Trivy') {
+        stage('Run Security Scans') {
             steps {
                 sh '''
                 echo "Scanning Docker image with Trivy..."
@@ -59,8 +48,6 @@ pipeline {
                 trivy image --exit-code 1 --severity HIGH,CRITICAL --format table $DOCKER_IMAGE | tee Reports/trivy-report.txt
                 '''
             }
-        }
-        stage('Run Security Scan - Docker Scout') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
                     sh '''
@@ -76,7 +63,7 @@ pipeline {
                     '''
                 }
             }
-        }   
+        } 
         stage('Push to Registry') {
             when { branch 'main' }
             steps {
