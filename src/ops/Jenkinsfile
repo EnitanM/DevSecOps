@@ -62,7 +62,7 @@ pipeline {
             steps{
                 sh'''
                 echo "Testing script"
-                /bin/bash src/flask-app/run.sh
+                ./src/flask-app/run.sh
                 '''
             }
         } 
