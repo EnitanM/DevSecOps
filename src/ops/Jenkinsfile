@@ -15,6 +15,13 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Configure Docker scout') {
+            steps {
+                sh '''
+                    docker scout help
+                '''
+            }
+        }
         stage('Run Unit Tests') {
             when{ 
                 expression { fileExists('src/flask-app/Dockerfile')}
