@@ -51,13 +51,13 @@ pipeline {
                     if ! command -v scout > /dev/null; then
                     echo "Installing Docker Scout..."
                     mkdir -p $HOME/bin
-                    curl -sSfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s -- -b /usr/local/bin
+                    curl -sSfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s -- -b $HOME/bin
                     fi
-                    export PATH="/usr/local/bin:$PATH"
+                    export PATH="$HOME/bin:$PATH"
                     mkdir -p Reports
                     echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
                     docker images
-                    docker-scout cves $DOCKER_IMAGE:latest --only-severity critical,high --format markdown | tee Reports/scout-report.md
+                    docker scout cves $DOCKER_IMAGE:latest --only-severity critical,high --format markdown | tee Reports/scout-report.md
                     '''
                 }
             }
