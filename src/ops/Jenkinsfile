@@ -15,7 +15,7 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Configure Docker scout') {
+        stage('Testing Docker scout') {
             steps {
                 sh '''
                     docker scout help
