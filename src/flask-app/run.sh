@@ -20,6 +20,3 @@ docker scout cves $APP_NAME:$VERSION --output report.txt
 
 #SBOM
 docker scout sbom $APP_NAME:$VERSION --output sbom.txt
-
-run the app
-python app.py
