@@ -4,7 +4,7 @@ appName: capstoneproject1
 
 image:
   repository: enitanm/personalproject
-  tag: v2.0.40
+  tag: v2.0.41
   pullPolicy: IfNotPresent
 
 service:
