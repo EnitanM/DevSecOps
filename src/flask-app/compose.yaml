@@ -5,4 +5,4 @@ services:
       context: .
     image: personalproject:latest
     ports:
-      - 8082:8082
+      - 8088:8088

@@ -28,6 +28,6 @@ RUN apt-get update && \
     pip install pytest
 
 # Expose configurable port
-EXPOSE 8082
+EXPOSE 8088
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8082", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8088", "app:app"]
