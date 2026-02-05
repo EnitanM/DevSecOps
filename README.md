@@ -5,6 +5,7 @@
 
 ### ArgoCD
 <img width="675" height="715" alt="node" src="https://github.com/user-attachments/assets/36b29b2e-6e78-4460-9fd4-c1d6cda9c993" />
+<img width="1524" height="614" alt="Screenshot 2025-10-29 at 03 53 00" src="https://github.com/user-attachments/assets/7edc584e-3c18-406c-af8f-9085230118cd" />
 
 ### Grafana (Alert)
 <img width="1823" height="834" alt="cpu_alert_firing" src="https://github.com/user-attachments/assets/e8eca28e-54a7-44aa-88ba-455532ddc5e5" />
