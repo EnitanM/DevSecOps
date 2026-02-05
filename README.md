@@ -12,3 +12,6 @@
 
 ### Grafana (Custom Dashboard)
 <img width="1969" height="1018" alt="grafana_custom-dashboard" src="https://github.com/user-attachments/assets/bb4bfd0d-89f7-405e-be54-4cf85c0930c8" />
+
+### Trivy Security Scan
+<img width="2431" height="876" alt="Trivy security scan" src="https://github.com/user-attachments/assets/2dd6f3d9-135e-4aae-abf7-1c3e70097c36" />
