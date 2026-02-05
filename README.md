@@ -1,4 +1,3 @@
-# Exploring DevSecOps
 ## Project in images
 ### Jenkins
 <img width="1432" height="436" alt="jenkins-dashboard" src="https://github.com/user-attachments/assets/c9acd550-c5b3-437b-ba9f-9089811747d2" />
