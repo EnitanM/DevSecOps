@@ -13,6 +13,7 @@
 
 ### Grafana (Custom Dashboard)
 <img width="1969" height="1018" alt="grafana_custom-dashboard" src="https://github.com/user-attachments/assets/bb4bfd0d-89f7-405e-be54-4cf85c0930c8" />
+<img width="2106" height="1320" alt="grafana-kubernetes_kubelet" src="https://github.com/user-attachments/assets/739290a0-6606-4294-bc4f-46acc488af5a" />
 
 ### Trivy Security Scan
 <img width="2431" height="876" alt="Trivy security scan" src="https://github.com/user-attachments/assets/2dd6f3d9-135e-4aae-abf7-1c3e70097c36" />
