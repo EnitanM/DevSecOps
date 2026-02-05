@@ -8,6 +8,10 @@
 <img width="675" height="715" alt="node" src="https://github.com/user-attachments/assets/36b29b2e-6e78-4460-9fd4-c1d6cda9c993" />
 <img width="1524" height="614" alt="Screenshot 2025-10-29 at 03 53 00" src="https://github.com/user-attachments/assets/7edc584e-3c18-406c-af8f-9085230118cd" />
 
+### Prometheus
+<img width="2554" height="1162" alt="PromQL-memory_usage_graph" src="https://github.com/user-attachments/assets/011d64e1-224d-434c-90f8-1fb7c86ca368" />
+<img width="2557" height="1167" alt="PromQL-CPU_usage_graph" src="https://github.com/user-attachments/assets/1c5a6574-3d0a-4da1-b43f-b1cf1fe54589" />
+
 ### Grafana (Alert)
 <img width="1823" height="834" alt="cpu_alert_firing" src="https://github.com/user-attachments/assets/e8eca28e-54a7-44aa-88ba-455532ddc5e5" />
 
