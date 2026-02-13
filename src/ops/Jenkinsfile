@@ -63,7 +63,7 @@ pipeline {
         stage('Update Kubernetes Deployment') {
             when { branch 'main' }
             steps {
-                withCredentials([gitUsernamePassword(credentialsId: 'seniorprojecttoken', gitToolName: '')]) {
+                withCredentials([gitUsernamePassword(credentialsId: 'public', gitToolName: '')]) {
                     sh '''
                     echo "Updating deployment manifest with new image tag..."
                     cd src/infra/helm/flask-app
