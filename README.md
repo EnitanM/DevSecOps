@@ -1,5 +1,42 @@
+# End-To-End DevSecOps Pipeline
+
+## Summary
+
+This projects demonstrates a pipeline automating the application lifecycle. It adopts the core principles and practices of DevOps, with a focus on the integration of security practices into the process (DevSecOps).
+
+> **What problem does this solve?**
+Development and operation teams are traditionally separated by their different objectives in organizations, leading to many inefficiencies in the application lifecycle. DevOps addresses these inefficiencies by promoting coordination and collaboration between these roles. It empowers teams by streamlining processes for building, testing, and deploying applications, resulting in a more agile, and customer-centric environment.
+
+### Approach
+
+- Project Planning and App Selection
+  - Draft a high-level architecture diagram
+  - Setup GitHub repository
+  - Select sample application/webpage
+
+- Pipeline infrastructure and Automation Setup
+  - Set up Kubernetes environment (Minikube)
+  - Install Jenkins and configure CI pipeline
+  - Integrate GitOps tooling (ArgoCD)
+  - Establish RBAC and container scan process
+
+- Monitoring and Finalization
+  - Integrate monitoring tools (Prometheus & Grafana)
+  - Ensure successful pipeline execution from code push to deployment
+
+> [!Note]
+  This is for demonstrative purposes only. It is not intended to be a full-scale production-grade application.
+
+#### Project's structure
+
+- `/src/flask-app/` contains the app's source code, tests, requirements, dockerfile and compose.yaml file'
+- `/src/infra/` contains the infrastructure used by the local K8s environment
+- `/src/ops/` contains the Jenkinsfile automating the entire process
+
 ## Project in images
+
 ### Jenkins
+
 <img width="1432" height="436" alt="jenkins-dashboard" src="https://github.com/user-attachments/assets/c9acd550-c5b3-437b-ba9f-9089811747d2" />
 <img width="1760" height="825" alt="Screenshot 2025-10-29 at 03 34 57" src="https://github.com/user-attachments/assets/768b5dbe-5465-4b8f-87b2-977acc40ce2f" />
 
